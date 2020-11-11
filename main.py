@@ -1,21 +1,20 @@
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
 from time import sleep
-print("Random config stuff..Don't mind me")
 #Config
 chrome_options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
 chrome_options.add_experimental_option("prefs",prefs)
-options = Options()
-options.add_argument("--headless")
-options.add_argument("--silent")
-options.add_argument("--disable-gpu")
-options.add_argument("--log-level=3")
-options.add_experimental_option('excludeSwitches', ['enable-logging'])
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--silent")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--log-level=3")
+chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
 web = webdriver.Chrome("./chromedriver.exe",chrome_options=chrome_options)
 #Getting our jokes
 print("Joke incoming.....")
 web.get("https://www.reddit.com/r/Jokes/")
+#Don't include style in the xpath, we only need to get the jokes xpath, Because pinned messages have a different xPath
 text1 = web.find_elements_by_xpath('//div[2]/div[2]/div[1]/a/div/h3[1]')
 init=[]
 jokes=[]
@@ -28,4 +27,4 @@ for value in text2:
 print(jokes[0])
 
 web.quit()
-sleep(10)
+sleep(5)
